@@ -1,0 +1,32 @@
+"""
+{{ migration_name }}
+
+Revision ID: {{ migration_id }}
+Revises: {{ down_revision or 'None' }}
+Create Date: {{ timestamp }}
+
+"""
+
+from alembic import op
+import sqlalchemy as sa
+
+
+# revision identifiers, used by Alembic.
+revision = '{{ migration_id }}'
+down_revision = {{ down_revision or 'None' }}
+branch_labels = None
+depends_on = None
+
+
+def upgrade():
+    # Execute the forward migration
+    op.execute("""
+{{ sql_query }}
+    """)
+
+
+def downgrade():
+    # Execute the rollback migration
+    op.execute("""
+{{ rollback_sql }}
+    """)

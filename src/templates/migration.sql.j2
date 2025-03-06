@@ -1,0 +1,17 @@
+-- Migration: {{ migration_name }}
+-- Created: {{ timestamp }}
+-- Migration ID: {{ migration_id }}
+
+-- Transaction to ensure the migration is atomic
+BEGIN;
+
+-- Forward migration
+{{ sql_query }}
+
+-- To roll back this migration, run the following SQL:
+/*
+-- Rollback migration
+{{ rollback_sql }}
+*/
+
+COMMIT;

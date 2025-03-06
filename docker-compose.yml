@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: sql_gpt_app
+    volumes:
+      - .:/app
+    ports:
+      - "5001:9876"
+    environment:
+      - OPENAI_API_KEY
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=sql_gpt
+    depends_on:
+      - db
+    command: python run_web.py
+
+  db:
+    image: postgres:15
+    container_name: sql_gpt_db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=sql_gpt
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
